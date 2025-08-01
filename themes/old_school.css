@@ -1,0 +1,66 @@
+body {
+  font-family: 'Courier New', monospace;
+  background-color: #fffff0;
+  color: #000;
+  padding: 20px;
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-family: 'Times New Roman', serif;
+  color: darkred;
+  border-bottom: 2px dotted #333;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 16px;
+  margin-bottom: 1rem;
+}
+
+/* Links */
+a {
+  color: navy;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: red;
+}
+
+/* Buttons */
+button, .btn {
+  background-color: #dcdcdc;
+  color: black;
+  border: 2px solid #999;
+  padding: 8px 12px;
+  font-family: 'Courier New', monospace;
+}
+
+button:hover, .btn:hover {
+  background-color: #c0c0c0;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid black;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 0.5rem;
+}
+
+th {
+  background-color: #e0e0e0;
+}
+
+/* Forms */
+input, textarea, select {
+  border: 2px inset gray;
+  padding: 6px;
+  font-family: inherit;
+  margin-bottom: 1rem;
+}
