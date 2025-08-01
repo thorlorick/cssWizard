@@ -1,0 +1,73 @@
+body {
+  background: #fff;
+  color: #000;
+  font-family: Arial, sans-serif;
+  margin: 40px;
+  font-size: 18px;
+}
+
+/* Brutalist Headers */
+h1, h2, h3 {
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom: 4px solid black;
+  padding-bottom: 4px;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Links */
+a {
+  color: #000;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+a:hover {
+  background: yellow;
+}
+
+/* Buttons */
+button, .btn {
+  background: #000;
+  color: #fff;
+  border: 4px double #000;
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+button:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid #000;
+}
+
+th, td {
+  border: 2px solid #000;
+  padding: 1rem;
+  font-family: monospace;
+}
+
+/* Forms */
+input, select, textarea {
+  font-family: monospace;
+  border: 3px solid black;
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+}
+
+/* Utility */
+.container {
+  border: 5px dashed red;
+  padding: 2rem;
+}
