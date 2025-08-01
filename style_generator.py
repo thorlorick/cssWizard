@@ -63,5 +63,14 @@ def style_html(html_path, style_keyword, output_path="styled_output.html"):
     print(f"Styled HTML written to {output_path}")
 
 if __name__ == "__main__":
-    style = os.getenv("STYLE_KEYWORD", "modern")  # use environment variable
-    style_html("input.html", style)
+    print("Available styles:")
+    for name in STYLE_THEMES.keys():
+        print(f"- {name}")
+
+    keyword = input("\nEnter a style keyword: ").strip().lower()
+
+    if keyword not in STYLE_THEMES:
+        print(f"❌ Style '{keyword}' not found.")
+    else:
+        style_html("input.html", keyword)
+
