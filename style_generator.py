@@ -1,71 +1,129 @@
 from bs4 import BeautifulSoup
-import os
 
 STYLE_THEMES = {
-    "modern": {
-        "body": {
-            "background-color": "#f9f9f9",
-            "font-family": "'Segoe UI', sans-serif",
-            "color": "#333",
-            "padding": "2rem",
-        },
-        "h1": {"color": "#2a2a2a"},
-        "p": {"line-height": "1.6"},
-        "button": {
-            "background-color": "#007BFF",
-            "color": "white",
-            "border": "none",
-            "padding": "10px 20px",
-            "border-radius": "4px"
+    "modern": """
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 2em;
         }
-    },
+        h1, h2, h3 {
+            color: #2a7ae2;
+        }
+        a {
+            color: #007bff;
+        }
+    """,
 
-    "old school": {
-        "body": {
-            "background-color": "#fff8dc",
-            "font-family": "'Courier New', monospace",
-            "color": "#000",
-        },
-        "h1": {"color": "darkred", "text-decoration": "underline"},
-        "p": {"font-style": "italic"},
-        "button": {
-            "background-color": "gray",
-            "color": "white",
-            "border": "2px solid black"
+    "old school": """
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: #fffff0;
+            color: #000;
+            margin: 2em;
         }
-    }
+        h1, h2, h3 {
+            color: #800000;
+        }
+        a {
+            color: #000080;
+        }
+    """,
+
+    "minimalist": """
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            color: #111;
+            padding: 2rem;
+            max-width: 700px;
+            margin: auto;
+        }
+        h1, h2, h3 {
+            border-bottom: 1px solid #eee;
+        }
+        a {
+            color: black;
+            text-decoration: underline;
+        }
+    """,
+
+    "brutalist": """
+        body {
+            font-family: monospace;
+            background: #fff;
+            color: #000;
+            padding: 2rem;
+        }
+        h1, h2, h3 {
+            background: #000;
+            color: #fff;
+            padding: 0.5rem;
+        }
+        a {
+            color: #f00;
+        }
+    """,
+
+    "cyberpunk": """
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: #0f0f2f;
+            color: #f0f;
+            padding: 2rem;
+        }
+        h1, h2, h3 {
+            color: #0ff;
+        }
+        a {
+            color: #ff0;
+        }
+    """,
+
+    "print-friendly": """
+        body {
+            font-family: Georgia, serif;
+            background: white;
+            color: black;
+            margin: 1in;
+        }
+        a {
+            color: black;
+            text-decoration: underline;
+        }
+    """
 }
 
-def generate_css_from_theme(theme_dict):
-    css = ""
-    for selector, rules in theme_dict.items():
-        rule_str = "; ".join(f"{k}: {v}" for k, v in rules.items())
-        css += f"{selector} {{ {rule_str}; }}\n"
-    return css
 
-def style_html(html_path, style_keyword, output_path="styled_output.html"):
-    with open(html_path, "r") as f:
+def style_html(input_file: str, style_keyword: str, output_file: str = "styled_output.html"):
+    with open(input_file, "r", encoding="utf-8") as f:
         soup = BeautifulSoup(f, "html.parser")
 
-    theme = STYLE_THEMES.get(style_keyword.lower())
-    if not theme:
-        raise ValueError(f"No theme found for '{style_keyword}'.")
-
-    css = generate_css_from_theme(theme)
+    style = STYLE_THEMES.get(style_keyword.lower())
+    if not style:
+        raise ValueError(f"Style '{style_keyword}' not found.")
 
     style_tag = soup.new_tag("style")
-    style_tag.string = css
-    soup.head.append(style_tag)
+    style_tag.string = style
 
-    with open(output_path, "w") as f:
+    if soup.head:
+        soup.head.append(style_tag)
+    else:
+        head = soup.new_tag("head")
+        head.append(style_tag)
+        soup.insert(0, head)
+
+    with open(output_file, "w", encoding="utf-8") as f:
         f.write(str(soup))
 
-    print(f"Styled HTML written to {output_path}")
+    print(f"✅ Styled HTML written to: {output_file}")
+
 
 if __name__ == "__main__":
     print("Available styles:")
-    for name in STYLE_THEMES.keys():
-        print(f"- {name}")
+    for style in STYLE_THEMES.keys():
+        print(f"- {style}")
 
     keyword = input("\nEnter a style keyword: ").strip().lower()
 
@@ -73,4 +131,5 @@ if __name__ == "__main__":
         print(f"❌ Style '{keyword}' not found.")
     else:
         style_html("input.html", keyword)
+
 
